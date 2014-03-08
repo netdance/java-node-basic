@@ -1,0 +1,40 @@
+
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'maven'
+
+
+defaultTasks 'installSemver','run'
+
+mainClassName = 'net.netdance.example.node.BasicNodeExample'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  compile "org.codehaus.groovy:groovy-all:2.2.1"
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src'
+        }
+    }
+}
+
+task wrap (type: Wrapper, description: "create a gradlew") {
+    gradleVersion = '1.11'
+}
+
+task cleanNodeModules {
+    delete 'node_modules'
+}
+clean.dependsOn cleanNodeModules
+
+task installSemver (type: Exec) {
+  description = "update Cache info from npm"
+  commandLine 'npm'
+  args 'update','semver'
+}
