@@ -44,9 +44,13 @@ class BasicNodeExample {
             println "It failed with this message:"
             println e.message
         }
+        
+        println "semver.maxSatisfying(['1.2.3','1.3.0'],'~1') with double invoke"
+        println inv.invokeMethod(semver, 'maxSatisfying',
+            [inv.invokeMethod(engine.get('Java'),'from',['1.2.3','1.3.0']),'~1',true] as Object[])
 
         
-        def func2 =
+        def shim =
 '''
 semver.maxSatisfyingHack = maxSatisfyingHack;
 function maxSatisfyingHack(rversions, range, loose) {
@@ -54,11 +58,12 @@ function maxSatisfyingHack(rversions, range, loose) {
   return maxSatisfying(versions,range,loose);
 }
 '''           
-        engine.eval(func2)
+        engine.eval(shim)
         
-        println "semver.maxSatisfyingHack(['1.2.3','1.3.0'],'~1') with invoke"
+        println "semver.maxSatisfyingHack(['1.2.3','1.3.0'],'~1') with invoke and shim"
         println inv.invokeMethod(semver, 'maxSatisfyingHack',
             [['1.2.3','1.3.0'] as Object[],'~1',true] as Object[])
+
     }
 }
 

@@ -36,5 +36,5 @@ clean.dependsOn cleanNodeModules
 task installSemver (type: Exec) {
   description = "update Cache info from npm"
   commandLine 'npm'
-  args 'update','semver'
+  args 'install','semver'
 }
