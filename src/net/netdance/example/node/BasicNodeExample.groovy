@@ -62,7 +62,7 @@ function maxSatisfyingHack(rversions, range, loose) {
         
         println "semver.maxSatisfyingHack(['1.2.3','1.3.0'],'~1') with invoke and shim"
         println inv.invokeMethod(semver, 'maxSatisfyingHack',
-            [['1.2.3','1.3.0'] as Object[],'~1',true] as Object[])
+            [['1.2.3','1.3.0'],'~1',true] as Object[])
 
     }
 }

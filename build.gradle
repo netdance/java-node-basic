@@ -28,13 +28,15 @@ task wrap (type: Wrapper, description: "create a gradlew") {
     gradleVersion = '1.11'
 }
 
-task cleanNodeModules {
+task cleanAll (dependsOn: 'clean') {
     delete 'node_modules'
 }
-clean.dependsOn cleanNodeModules
 
 task installSemver (type: Exec) {
   description = "update Cache info from npm"
   commandLine 'npm'
   args 'install','semver'
 }
+
+run.dependsOn installSemver
+
